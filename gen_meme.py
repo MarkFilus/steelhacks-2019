@@ -8,15 +8,26 @@ import pickle
 def separate_text(input):
     text_split = input.split()
     num_words = len(text_split)
-    middle_index = int(num_words / 2)
+    middle_index = num_words / 2
+
+    changed = False
+
+    if type(middle_index) is not int:
+        changed = True
+        middle_index = int(middle_index)
 
     top_string = ""
     bottom_string = ""
     for i in range(num_words):
         top_string += text_split[i]
         top_string += ' '
-        if i == middle_index:
-            break
+
+        if changed:
+            if i == middle_index - 1:
+                break
+        else:
+            if i == middle_index:
+                break
 
     new_range = num_words - middle_index
     for i in range(new_range):
@@ -71,7 +82,7 @@ def make_meme(topString, bottomString, filename):
     draw.text(topTextPosition, topString, (255, 255, 255), font=font)
     draw.text(bottomTextPosition, bottomString, (255, 255, 255), font=font)
 
-    img.save("temp.png")
+    img.save("dank_meme.png")
 
 
 def main():
@@ -79,11 +90,11 @@ def main():
         meme_list = pickle.load(f)
         
         meme_list= pickle.load(f)
-    img = get_img('blank.jpg')
-    #top_string, bottom_string = separate_text('Testing the separation of text hahaha')
-    #print("Top:", top_string)
-    #print("Bottom:", bottom_string)
-    #make_meme("Testing the top ;)", "Testing the bottom (;", img)
+    
+    img = get_img('zuck.png')
+
+    top_string, bottom_string = separate_text('Testing the separation of text for the dankest memes hahaha.')
+    make_meme(top_string, bottom_string, img)
 
 
 if __name__ == '__main__':
