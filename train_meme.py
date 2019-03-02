@@ -4,10 +4,6 @@ import pickle
 import sys
 
 
-def generate(file_name):
-    textgen = textgenrnn()
-    textgen.train_from_file(file_name, num_epochs=1, return_as_list=True)
-    return textgen.generate()
 
 
 def load_data():
@@ -23,9 +19,10 @@ def get_img(img_name):
 
 
 def main():
-    generate_list = generate(sys.argv[1])
-    with open('list.pkl', 'wb') as f:
-        pickle.dump(generate_list, f)
+    textgen = textgenrnn()
+    textgen.train_from_file(sys.argv[1], num_epochs=1, temperature=[1.0])
+    with open('model.pkl', 'wb') as f:
+        pickle.dump(textgen, f)
 
 
 if __name__ == '__main__':

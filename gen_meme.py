@@ -95,6 +95,11 @@ def main():
 
     top_string, bottom_string = separate_text('Testing the separation of text for the dankest memes hahaha.')
     make_meme(top_string, bottom_string, img)
+    with open('model.pkl', 'rb') as f:
+        meme= pickle.load(f)
+    meme_list=meme.generate(return_as_list=True, temperature=[1.0], n=2 )
+    img = get_img('blank.jpg')
+    make_meme(meme_list[0], meme_list[1], img)
 
 
 if __name__ == '__main__':
