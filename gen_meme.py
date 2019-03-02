@@ -3,6 +3,7 @@ from PIL import Image
 from PIL import ImageDraw
 import pickle
 from train_meme import get_img
+import pickle
 
 def separate_text(input):
     text_split = input.split()
@@ -77,6 +78,7 @@ def main():
     with open('list.pkl', 'rb') as f:
         meme_list = pickle.load(f)
         
+        meme_list= pickle.load(f)
     img = get_img('blank.jpg')
     #top_string, bottom_string = separate_text('Testing the separation of text hahaha')
     #print("Top:", top_string)
