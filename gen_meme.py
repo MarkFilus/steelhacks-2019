@@ -1,7 +1,28 @@
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
+import pickle
 from train_meme import get_img
+
+def separate_text(input):
+    text_split = input.split()
+    num_words = len(text_split)
+    middle_index = int(num_words / 2)
+
+    top_string = ""
+    bottom_string = ""
+    for i in range(num_words):
+        top_string += text_split[i]
+        top_string += ' '
+        if i == middle_index:
+            break
+
+    new_range = num_words - middle_index
+    for i in range(new_range):
+        bottom_string += text_split[i+middle_index]
+        bottom_string += ' '
+
+    return top_string, bottom_string
 
 
 def make_meme(topString, bottomString, filename):
@@ -53,8 +74,14 @@ def make_meme(topString, bottomString, filename):
 
 
 def main():
+    with open('list.pkl', 'rb') as f:
+        meme_list = pickle.load(f)
+        
     img = get_img('blank.jpg')
-    make_meme("Testing the top ;)", "Testing the bottom (;", img)
+    #top_string, bottom_string = separate_text('Testing the separation of text hahaha')
+    #print("Top:", top_string)
+    #print("Bottom:", bottom_string)
+    #make_meme("Testing the top ;)", "Testing the bottom (;", img)
 
 
 if __name__ == '__main__':
