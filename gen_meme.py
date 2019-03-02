@@ -54,7 +54,7 @@ def make_meme(topString, bottomString, filename):
 
 
 def main():
-    with open('model.pkl', 'rb') as f:
+    with open('list.pkl', 'rb') as f:
         meme_list= pickle.load(f)
     img = get_img('blank.jpg')
     make_meme("Testing the top ;)", "Testing the bottom (;", img)
