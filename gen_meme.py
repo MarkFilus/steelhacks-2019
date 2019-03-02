@@ -4,6 +4,7 @@ from PIL import ImageDraw
 import pickle
 from train_meme import get_img
 import pickle
+from textgenrnn import textgenrnn
 
 def separate_text(input):
     text_split = input.split()
@@ -37,7 +38,7 @@ def separate_text(input):
     return top_string, bottom_string
 
 
-def make_meme(topString, bottomString, filename):
+def make_meme(topString, bottomString, filename, name):
 
     img = Image.open(filename)
     imageSize = img.size
@@ -82,19 +83,21 @@ def make_meme(topString, bottomString, filename):
     draw.text(topTextPosition, topString, (255, 255, 255), font=font)
     draw.text(bottomTextPosition, bottomString, (255, 255, 255), font=font)
 
-    img.save("dank_meme.png")
+    img.save(name)
 
 
 def main():
-    '''
     with open('model.pkl', 'rb') as f:
         meme= pickle.load(f)
-
-    meme_list=meme.generate(return_as_list=True, temperature=[1.0], n=2 )'''
+    
     img = get_img('bear.jpg')
-    make_meme(meme_list[0], meme_list[1], img)
+    
 
-    # top_string, bottom_string = separate_text('Testing the separation of text for the dankest memes hahaha.')
+    for idx, elem in enumerate(meme):
+        top_string, bottom_string = separate_text(elem)
+        make_meme(top_string, bottom_string, img, f"dank-meme-{idx}.png")
+
+        
 
 if __name__ == '__main__':
     main()

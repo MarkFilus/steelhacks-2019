@@ -4,8 +4,6 @@ import pickle
 import sys
 
 
-
-
 def load_data():
     path = os.path.join(os.getcwd(), 'sample_text.txt')
     text = open(path).read().lower()
