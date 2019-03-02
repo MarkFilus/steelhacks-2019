@@ -75,15 +75,11 @@ def make_meme(topString, bottomString, filename):
 
 
 def main():
-    with open('list.pkl', 'rb') as f:
-        meme_list = pickle.load(f)
-        
-        meme_list= pickle.load(f)
+    with open('model.pkl', 'rb') as f:
+        meme= pickle.load(f)
+    meme_list=meme.generate(return_as_list=True, temperature=[1.0], n=2 )
     img = get_img('blank.jpg')
-    #top_string, bottom_string = separate_text('Testing the separation of text hahaha')
-    #print("Top:", top_string)
-    #print("Bottom:", bottom_string)
-    #make_meme("Testing the top ;)", "Testing the bottom (;", img)
+    make_meme(meme_list[0], meme_list[1], img)
 
 
 if __name__ == '__main__':
