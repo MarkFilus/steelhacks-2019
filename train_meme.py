@@ -12,14 +12,6 @@ def load_data():
     text = open(path).read().lower()
     print('corpus length:', len(text))
 
-# Input:
-''' 
-Image format
-Upvotes
-Top text
-Bottom text
-'''
-
 def get_img(img_name):
     path = os.getcwd() + "/samplememes/"
     img = path + img_name
