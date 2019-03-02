@@ -2,6 +2,7 @@ from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
 from train_meme import get_img
+import pickle
 
 
 def make_meme(topString, bottomString, filename):
@@ -53,6 +54,8 @@ def make_meme(topString, bottomString, filename):
 
 
 def main():
+    with open('model.pkl', 'rb') as f:
+        meme_list= pickle.load(f)
     img = get_img('blank.jpg')
     make_meme("Testing the top ;)", "Testing the bottom (;", img)
 
