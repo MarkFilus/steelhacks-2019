@@ -9,20 +9,22 @@ from io import BytesIO
 import requests
 
 
-def get_image(url,filename):
+def get_image(url, filename):
     response = requests.get(url)
     img = Image.open(BytesIO(response.content))
     img.show()
+
 
 if __name__ == "__main__":
 
     opts = Options()
     driver = webdriver.Firefox(firefox_options=opts)
     driver.get('https://old.reddit.com/r/adviceanimals')
-    expando_buttons=driver.find_elements(By.CSS_SELECTOR, ".expando-button.collapsed")
+    expando_buttons = driver.find_elements(
+        By.CSS_SELECTOR, ".expando-button.collapsed")
     for btn in expando_buttons:
         btn.click()
-    memes=driver.find_elements(By.CSS_SELECTOR, ".expando img.preview")
+    memes = driver.find_elements(By.CSS_SELECTOR, ".expando img.preview")
     meme_urls = [meme.get_attribute('src') for meme in memes]
     for url in meme_urls:
         get_image(url, '')
