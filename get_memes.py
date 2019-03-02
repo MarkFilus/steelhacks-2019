@@ -26,6 +26,9 @@ class MemeGrabber():
         self.meme_count = 0
         self.driver.get(start_url)
 
+    def __del__(self):
+        self.driver.quit()
+
     def get_memes(self):
         self._expand_memes()
         self._save_images()
@@ -82,6 +85,7 @@ def get_image(url, filename):
 if __name__ == "__main__":
     if len(sys.argv) == 3:
         mg = MemeGrabber(start_url=sys.argv[2])
+        total = int(sys.argv[1])
     elif len(sys.argv) == 2:
         total = int(sys.argv[1])
         mg = MemeGrabber()
@@ -91,4 +95,7 @@ if __name__ == "__main__":
 
     while(mg.meme_count < total):
         mg.get_memes()
-        mg.next_page()
+        try:
+            mg.next_page()
+        except NoSuchElementException:
+            break
